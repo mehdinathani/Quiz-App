@@ -31,6 +31,12 @@ class StudentsSelectionView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                ElevatedButton(
+                  onPressed: () async {
+                    await viewModel.scanQRCode();
+                  },
+                  child: const Text('Scan QR Code'),
+                ),
                 viewModel.isBusy
                     ? const CircularProgressIndicator()
                     : DropdownButton<String>(

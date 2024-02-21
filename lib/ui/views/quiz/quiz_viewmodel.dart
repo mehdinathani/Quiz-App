@@ -19,7 +19,7 @@ class QuizViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   int studentScore = 0;
   bool quizEnd = false;
-
+  TextEditingController userInputController = TextEditingController();
   late QuizData quizData;
   late List<Map<String, dynamic>> allQuizData;
   late int totalQuestions;
@@ -39,6 +39,7 @@ class QuizViewModel extends BaseViewModel {
       quizData = QuizData(allQuizData);
       debugPrint(allQuizData.toString()); // Debug print quiz data
     }
+    showRandomQuizQuestion();
     setBusy(false);
     notifyListeners(); // Trigger UI update
   }
@@ -70,13 +71,39 @@ class QuizViewModel extends BaseViewModel {
 
   void checkAnswer(String userAnswer) {
     if (randomQuiz != null) {
+      final questionType = randomQuiz!['QuestionType'];
       final correctAnswer = randomQuiz!['CorrectAnswer'];
-      if (correctAnswer == userAnswer) {
-        studentScore++;
-        debugPrint('Correct!');
+
+      if (questionType == 'Descriptive') {
+        final int? totalPoints = int.tryParse(randomQuiz!['TotalPoint']);
+        if (totalPoints != null) {
+          try {
+            final int userMarks = int.parse(userAnswer);
+            if (userMarks >= 0 && userMarks <= totalPoints) {
+              studentScore += userMarks;
+              debugPrint('Marks added: $userMarks');
+            } else {
+              debugPrint('Invalid marks entered.');
+            }
+          } catch (e) {
+            debugPrint('Error parsing marks: $e');
+          }
+        } else {
+          debugPrint('TotalPoint value not found.');
+        }
       } else {
-        debugPrint('Incorrect!');
+        if (correctAnswer == userAnswer) {
+          final int? totalPoints = int.tryParse(randomQuiz!['TotalPoint']);
+          debugPrint(totalPoints.toString());
+          if (totalPoints != null) {
+            studentScore += totalPoints;
+          }
+          debugPrint('Correct!');
+        } else {
+          debugPrint('Incorrect!');
+        }
       }
+
       // Move to the next question
       showRandomQuizQuestion();
     }

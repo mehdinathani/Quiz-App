@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:quizapp/app/app.locator.dart';
 import 'package:quizapp/app/app.router.dart';
 import 'package:quizapp/model/students_data.dart';
@@ -47,5 +49,23 @@ class StudentsSelectionViewModel extends BaseViewModel {
 
   goToQuizPage() {
     _navigationService.navigateToQuizView();
+  }
+
+  Future<void> scanQRCode() async {
+    try {
+      final barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+        '#ff6666', // Color for the scan button
+        'Cancel', // Text for the cancel button
+        true, // Whether to show the flash option
+        ScanMode.QR, // Scan mode (QR code in this case)
+      );
+      if (barcodeScanRes != '-1') {
+        debugPrint(barcodeScanRes.toString());
+        // Update the selected roll number with the scanned QR code value
+        setSelectedRollNumber(barcodeScanRes);
+      }
+    } on Exception catch (e) {
+      debugPrint('Error scanning QR code: $e');
+    }
   }
 }

@@ -64,19 +64,31 @@ class QuizView extends StackedView<QuizViewModel> {
                         ],
                       ),
                     if (viewModel.randomQuiz!['QuestionType'] == 'Descriptive')
-                      TextField(
-                        decoration: const InputDecoration(
-                          labelText: 'Enter your answer',
-                        ),
-                        onSubmitted: (value) => viewModel.checkAnswer(value),
+                      Column(
+                        children: [
+                          TextField(
+                            controller: viewModel.userInputController,
+                            decoration: const InputDecoration(
+                              labelText: 'Enter your answer',
+                            ),
+                            onSubmitted: (value) =>
+                                viewModel.checkAnswer(value),
+                          ),
+                          ElevatedButton(
+                              onPressed: () {
+                                viewModel.checkAnswer(
+                                    viewModel.userInputController.text);
+                              },
+                              child: const Text("Next"))
+                        ],
                       ),
                   ],
-                  viewModel.isBusy
-                      ? const CircularProgressIndicator()
-                      : ElevatedButton(
-                          onPressed: viewModel.showRandomQuizQuestion,
-                          child: const Text('Next Question'),
-                        ),
+                  // viewModel.isBusy
+                  //     ? const CircularProgressIndicator()
+                  //     : ElevatedButton(
+                  //         onPressed: viewModel.showRandomQuizQuestion,
+                  //         child: const Text('Next Question'),
+                  //       ),
                 ],
               )
             : Column(

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:quizapp/ui/common/app_colors.dart';
-import 'package:quizapp/ui/common/ui_helpers.dart';
 
 import 'home_viewmodel.dart';
 
@@ -17,6 +15,7 @@ class HomeView extends StackedView<HomeViewModel> {
     return Scaffold(
       body: SafeArea(
         child: Container(
+          padding: const EdgeInsets.all(18),
           child: Column(
             children: [
               ElevatedButton(

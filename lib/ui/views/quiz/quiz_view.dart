@@ -14,65 +14,86 @@ class QuizView extends StackedView<QuizViewModel> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(viewModel.studentScore.toString()),
-            if (viewModel.randomQuiz != null) ...[
-              Text(
-                'Question: ${viewModel.randomQuiz!['Question']}',
-                style: const TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 20),
-              // Conditional rendering based on question type
-              if (viewModel.randomQuiz!['QuestionType'] == 'MCQs')
-                Column(
-                  children: [
-                    ElevatedButton(
-                      onPressed: () => viewModel.checkAnswer('A'),
-                      child: Text('A: ${viewModel.randomQuiz!['A']}'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () => viewModel.checkAnswer('B'),
-                      child: Text('B: ${viewModel.randomQuiz!['B']}'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () => viewModel.checkAnswer('C'),
-                      child: Text('C: ${viewModel.randomQuiz!['C']}'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () => viewModel.checkAnswer('D'),
-                      child: Text('D: ${viewModel.randomQuiz!['D']}'),
-                    ),
-                  ],
-                ),
-              if (viewModel.randomQuiz!['QuestionType'] == 'TrueFalse')
-                Column(
-                  children: [
-                    ElevatedButton(
-                      onPressed: () => viewModel.checkAnswer('True'),
-                      child: const Text('True'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () => viewModel.checkAnswer('False'),
-                      child: const Text('False'),
-                    ),
-                  ],
-                ),
-              if (viewModel.randomQuiz!['QuestionType'] == 'Descriptive')
-                TextField(
-                  decoration: const InputDecoration(
-                    labelText: 'Enter your answer',
+        child: !viewModel.quizEnd
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [Text(viewModel.currentStudentData!['Name']!)],
                   ),
-                  onSubmitted: (value) => viewModel.checkAnswer(value),
-                ),
-            ],
-            ElevatedButton(
-              onPressed: viewModel.showRandomQuizQuestion,
-              child: const Text('Show Random Quiz'),
-            ),
-          ],
-        ),
+                  Text(viewModel.studentScore.toString()),
+                  if (viewModel.randomQuiz != null) ...[
+                    Text(
+                      'Question: ${viewModel.randomQuiz!['Question']}',
+                      style: const TextStyle(fontSize: 18),
+                    ),
+                    const SizedBox(height: 20),
+                    // Conditional rendering based on question type
+                    if (viewModel.randomQuiz!['QuestionType'] == 'MCQs')
+                      Column(
+                        children: [
+                          ElevatedButton(
+                            onPressed: () => viewModel.checkAnswer('A'),
+                            child: Text('A: ${viewModel.randomQuiz!['A']}'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () => viewModel.checkAnswer('B'),
+                            child: Text('B: ${viewModel.randomQuiz!['B']}'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () => viewModel.checkAnswer('C'),
+                            child: Text('C: ${viewModel.randomQuiz!['C']}'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () => viewModel.checkAnswer('D'),
+                            child: Text('D: ${viewModel.randomQuiz!['D']}'),
+                          ),
+                        ],
+                      ),
+                    if (viewModel.randomQuiz!['QuestionType'] == 'TrueFalse')
+                      Column(
+                        children: [
+                          ElevatedButton(
+                            onPressed: () => viewModel.checkAnswer('true'),
+                            child: const Text('True'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () => viewModel.checkAnswer('false'),
+                            child: const Text('False'),
+                          ),
+                        ],
+                      ),
+                    if (viewModel.randomQuiz!['QuestionType'] == 'Descriptive')
+                      TextField(
+                        decoration: const InputDecoration(
+                          labelText: 'Enter your answer',
+                        ),
+                        onSubmitted: (value) => viewModel.checkAnswer(value),
+                      ),
+                  ],
+                  viewModel.isBusy
+                      ? const CircularProgressIndicator()
+                      : ElevatedButton(
+                          onPressed: viewModel.showRandomQuizQuestion,
+                          child: const Text('Next Question'),
+                        ),
+                ],
+              )
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Text("Finished."),
+                  Text(
+                    viewModel.studentScore.toString(),
+                  ),
+                  const Text("Move to Next"),
+                  ElevatedButton(
+                    onPressed: viewModel.goToStudentSelection,
+                    child: const Text("Select Next Student"),
+                  )
+                ],
+              ),
       ),
     );
   }

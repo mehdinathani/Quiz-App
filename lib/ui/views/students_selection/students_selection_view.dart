@@ -31,17 +31,19 @@ class StudentsSelectionView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                DropdownButton<String>(
-                  hint: const Text('Select Roll Number'),
-                  value: viewModel.selectedRollNumber,
-                  onChanged: viewModel.setSelectedRollNumber,
-                  items: viewModel.rollNumbers
-                      .map((rollNumber) => DropdownMenuItem(
-                            value: rollNumber,
-                            child: Text(rollNumber),
-                          ))
-                      .toList(),
-                ),
+                viewModel.isBusy
+                    ? const CircularProgressIndicator()
+                    : DropdownButton<String>(
+                        hint: const Text('Select Roll Number'),
+                        value: viewModel.selectedRollNumber,
+                        onChanged: viewModel.setSelectedRollNumber,
+                        items: viewModel.rollNumbers
+                            .map((rollNumber) => DropdownMenuItem(
+                                  value: rollNumber,
+                                  child: Text(rollNumber),
+                                ))
+                            .toList(),
+                      ),
                 const SizedBox(height: 20),
                 if (viewModel.selectedStudent != null)
                   Column(

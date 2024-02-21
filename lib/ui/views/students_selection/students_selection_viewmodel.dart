@@ -16,22 +16,27 @@ class StudentsSelectionViewModel extends BaseViewModel {
   Map<String, String>? selectedStudent;
 
   Future<void> fetchStudentData() async {
+    setBusy(true);
     final data = await _studentsDataService.fetchAllStudentsData();
     if (data != null) {
       studentsData = StudentsData(data);
       rollNumbers =
           studentsData.students.map((student) => student['Roll No']!).toList();
     }
+    setBusy(false);
     notifyListeners(); // Trigger UI update
   }
 
   Future<void> setSelectedRollNumber(String? rollNumber) async {
     selectedRollNumber = rollNumber;
+
     selectedStudent = null;
     if (rollNumber != null && studentsData.students.isNotEmpty) {
       selectedStudent = studentsData.students.firstWhere(
         (student) => student['Roll No'] == rollNumber,
       );
+      _studentsDataService.currentStudentRollNumber = rollNumber;
+      _studentsDataService.updateCurrentStudentData(selectedStudent);
       notifyListeners(); // Trigger UI update
     }
   }

@@ -76,3 +76,8 @@ double getResponsiveFontSize(BuildContext context,
 
   return responsiveSize;
 }
+
+TextStyle studentHeader = const TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.bold,
+);

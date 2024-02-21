@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quizapp/ui/common/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 
 import 'students_selection_viewmodel.dart';
@@ -14,61 +15,67 @@ class StudentsSelectionView extends StatelessWidget {
       builder: (context, viewModel, child) {
         return Scaffold(
           appBar: AppBar(
-            actions: [
-              IconButton(
-                  onPressed: () {
-                    viewModel.navigateToHome();
-                  },
-                  icon: const Icon(Icons.swipe_left_sharp))
-            ],
             centerTitle: true,
             title: const Text("Student Selection"),
           ),
           backgroundColor: Theme.of(context).colorScheme.background,
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () async {
-                    await viewModel.scanQRCode();
-                  },
-                  child: const Text('Scan QR Code'),
-                ),
-                viewModel.isBusy
-                    ? const CircularProgressIndicator()
-                    : DropdownButton<String>(
-                        hint: const Text('Select Roll Number'),
-                        value: viewModel.selectedRollNumber,
-                        onChanged: viewModel.setSelectedRollNumber,
-                        items: viewModel.rollNumbers
-                            .map((rollNumber) => DropdownMenuItem(
-                                  value: rollNumber,
-                                  child: Text(rollNumber),
-                                ))
-                            .toList(),
-                      ),
-                const SizedBox(height: 20),
-                if (viewModel.selectedStudent != null)
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                          'Name: ${viewModel.selectedStudent!['Name'] ?? 'Loading...'}'),
-                      Text(
-                          'Father\'s Name: ${viewModel.selectedStudent!['Father\'s Name'] ?? 'Loading...'}'),
-                      ElevatedButton(
-                        onPressed: () {
-                          viewModel.goToQuizPage();
-                        },
-                        child: const Text("Start"),
-                      )
-                    ],
+            child: viewModel.isBusy
+                ? const Center(child: CircularProgressIndicator())
+                : Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text("Select Roll Number from the below List."),
+                        DropdownButton<String>(
+                          hint: const Text('Select Roll Number'),
+                          value: viewModel.selectedRollNumber,
+                          onChanged: viewModel.setSelectedRollNumber,
+                          items: viewModel.rollNumbers
+                              .map((rollNumber) => DropdownMenuItem(
+                                    value: rollNumber,
+                                    child: Text(rollNumber),
+                                  ))
+                              .toList(),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.05,
+                        ),
+                        const Text("Scan the Bar Code."),
+                        verticalSpaceSmall,
+                        ElevatedButton(
+                          onPressed: () async {
+                            await viewModel.scanQRCode();
+                          },
+                          child: const Icon(Icons.qr_code),
+                        ),
+                        verticalSpaceLarge,
+                        if (viewModel.selectedStudent != null)
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                  'Name: ${viewModel.selectedStudent!['Name'] ?? 'Loading...'}'),
+                              verticalSpace(18),
+                              Text(
+                                  'Father\'s Name: ${viewModel.selectedStudent!['Father\'s Name'] ?? 'Loading...'}'),
+                              verticalSpaceMedium,
+                              Text(
+                                  "Class: ${viewModel.selectedStudent!["GROUP"]}"),
+                              verticalSpaceMedium,
+                              ElevatedButton(
+                                onPressed: () {
+                                  viewModel.goToQuizPage();
+                                },
+                                child: const Text("Start"),
+                              )
+                            ],
+                          ),
+                      ],
+                    ),
                   ),
-              ],
-            ),
           ),
         );
       },

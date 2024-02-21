@@ -8,6 +8,7 @@ import 'package:quizapp/ui/views/students_selection/students_selection_view.dart
 import 'package:quizapp/services/students_data_service_service.dart';
 import 'package:quizapp/services/quiz_data_service_service.dart';
 import 'package:quizapp/ui/views/quiz/quiz_view.dart';
+import 'package:quizapp/ui/views/exam/exam_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -16,6 +17,7 @@ import 'package:quizapp/ui/views/quiz/quiz_view.dart';
     MaterialRoute(page: StartupView),
     MaterialRoute(page: StudentsSelectionView),
     MaterialRoute(page: QuizView),
+    MaterialRoute(page: ExamView),
 // @stacked-route
   ],
   dependencies: [

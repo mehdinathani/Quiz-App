@@ -39,4 +39,8 @@ class HomeViewModel extends BaseViewModel {
   navigateToStudentSelection() {
     _navigationService.navigateToStudentsSelectionView();
   }
+
+  navigateToExamView() {
+    _navigationService.navigateToExamView();
+  }
 }

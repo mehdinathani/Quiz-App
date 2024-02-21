@@ -17,12 +17,18 @@ class HomeView extends StackedView<HomeViewModel> {
         child: Container(
           padding: const EdgeInsets.all(18),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
                   onPressed: () {
                     viewModel.navigateToStudentSelection();
                   },
-                  child: const Text("Quiz"))
+                  child: const Text("Quiz")),
+              ElevatedButton(
+                  onPressed: () {
+                    viewModel.navigateToExamView();
+                  },
+                  child: const Text("Exam View"))
             ],
           ),
         ),

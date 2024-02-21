@@ -7,7 +7,6 @@ class StudentsDataServiceService {
   final _gsheets = GSheets(_credentials);
   String currentStudentRollNumber = "";
   Map<String, String>? currentStudentData;
-  
 
   Future<List<Map<String, String>>?> fetchAllStudentsData() async {
     final ss = await _gsheets.spreadsheet(Config.studentsDataSpreadSheet);

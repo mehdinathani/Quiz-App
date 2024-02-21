@@ -679,6 +679,39 @@ class MockDialogService extends _i1.Mock implements _i2.DialogService {
 class MockStudentsDataServiceService extends _i1.Mock
     implements _i7.StudentsDataServiceService {
   @override
+  String get currentStudentRollNumber => (super.noSuchMethod(
+        Invocation.getter(#currentStudentRollNumber),
+        returnValue: _i3.dummyValue<String>(
+          this,
+          Invocation.getter(#currentStudentRollNumber),
+        ),
+        returnValueForMissingStub: _i3.dummyValue<String>(
+          this,
+          Invocation.getter(#currentStudentRollNumber),
+        ),
+      ) as String);
+
+  @override
+  set currentStudentRollNumber(String? _currentStudentRollNumber) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #currentStudentRollNumber,
+          _currentStudentRollNumber,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set currentStudentData(Map<String, String>? _currentStudentData) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #currentStudentData,
+          _currentStudentData,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   _i5.Future<List<Map<String, String>>?> fetchAllStudentsData() =>
       (super.noSuchMethod(
         Invocation.method(
@@ -706,6 +739,16 @@ class MockStudentsDataServiceService extends _i1.Mock
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
+
+  @override
+  void updateCurrentStudentData(Map<String, String>? studentData) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #updateCurrentStudentData,
+          [studentData],
+        ),
+        returnValueForMissingStub: null,
+      );
 }
 
 /// A class which mocks [QuizDataServiceService].
@@ -724,4 +767,14 @@ class MockQuizDataServiceService extends _i1.Mock
         returnValueForMissingStub:
             _i5.Future<List<Map<String, String>>?>.value(),
       ) as _i5.Future<List<Map<String, String>>?>);
+
+  @override
+  _i5.Future<void> markQuestionAsAsked(int? rowIndex) => (super.noSuchMethod(
+        Invocation.method(
+          #markQuestionAsAsked,
+          [rowIndex],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 }

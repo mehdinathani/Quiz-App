@@ -35,4 +35,29 @@ class StudentsDataServiceService {
   void updateCurrentStudentData(Map<String, String>? studentData) {
     currentStudentData = studentData;
   }
+
+  Future<void> submitExamResult(
+    String rollNumber,
+    String name,
+    String fathersName,
+    String group,
+    List<int> earnedPointsPerQuestion,
+    num totalScore,
+    String invigilatorName,
+  ) async {
+    final ss = await _gsheets.spreadsheet(Config.studentsDataSpreadSheet);
+    final sheet = ss.worksheetByTitle(Config.stundentExamResult);
+
+    final row = [
+      rollNumber,
+      name,
+      fathersName,
+      group,
+      ...earnedPointsPerQuestion.map((earnedPoints) => earnedPoints.toString()),
+      totalScore.toString(),
+      invigilatorName,
+    ];
+
+    await sheet?.values.appendRow(row);
+  }
 }

@@ -15,6 +15,7 @@ class ExamView extends StackedView<ExamViewModel> {
     Widget? child,
   ) {
     return Scaffold(
+      backgroundColor: Colors.pink[300],
       appBar: AppBar(
         title: const Text('Exam View'),
       ),
@@ -57,11 +58,15 @@ class ExamView extends StackedView<ExamViewModel> {
                       ],
                     ),
                     Expanded(
-                      child: ListView.builder(
+                      child: ListView.separated(
+                        separatorBuilder: (context, index) => const SizedBox(
+                          height: 20,
+                        ),
                         itemCount: viewModel.quizData.quizzes.length,
                         itemBuilder: (context, index) {
                           final question = viewModel.quizData.quizzes[index];
                           return ListTile(
+                            tileColor: Colors.white.withOpacity(0.5),
                             title: Text('Question ${index + 1}'),
                             subtitle: Text(question['Question']),
                             trailing: Text(
@@ -73,6 +78,13 @@ class ExamView extends StackedView<ExamViewModel> {
                         },
                       ),
                     ),
+                    ElevatedButton(
+                      onPressed: () {
+                        viewModel.onSubmitButtonPressed();
+                      },
+                      child: const Text('Submit'),
+                    ),
+                    verticalSpaceLarge,
                   ],
                 ),
     );

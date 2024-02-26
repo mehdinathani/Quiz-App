@@ -1,11 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:quizapp/app/app.locator.dart';
+import 'package:quizapp/app/app.router.dart';
 import 'package:quizapp/model/quiz_data.dart';
 import 'package:quizapp/services/quiz_data_service_service.dart';
 import 'package:quizapp/services/students_data_service_service.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class ExamViewModel extends BaseViewModel {
   final _quizService = locator<QuizDataServiceService>();
@@ -13,6 +13,7 @@ class ExamViewModel extends BaseViewModel {
       locator<StudentsDataServiceService>();
   num studentScore = 0;
   TextEditingController userTextController = TextEditingController();
+  final NavigationService _navigationService = NavigationService();
 
   late QuizData quizData;
   Map<String, String>? currentStudentData;
@@ -41,6 +42,40 @@ class ExamViewModel extends BaseViewModel {
   void calculateTotalScore() {
     studentScore = quizData.calculateTotalScore();
     notifyListeners(); // Notify listeners of the ViewModel
+  }
+
+  Future<void> onSubmitButtonPressed() async {
+    // Get the required data
+    final rollNumber = currentStudentData!['Roll No'];
+    final name = currentStudentData!['Name'];
+    final fathersName = currentStudentData!["Father's Name"];
+    final group = currentStudentData!["GROUP"];
+
+    // Parse EarnedPoints to integers
+    final earnedPointsPerQuestion = quizData.quizzes
+        .map((quiz) => int.parse(quiz['EarnedPoints']))
+        .toList();
+
+    final totalScore =
+        studentScore; // Assuming studentScore is already calculated
+    final invigilatorName = 'Your invigilator name'; // Get this from somewhere
+
+    // Submit the exam result
+    await _studentsDataService.submitExamResult(
+      rollNumber!,
+      name!,
+      fathersName!,
+      group!,
+      earnedPointsPerQuestion,
+      totalScore,
+      invigilatorName,
+    );
+    navigateToStudentSelection();
+    // Perform any additional actions after submitting, if needed
+  }
+
+  navigateToStudentSelection() {
+    _navigationService.navigateToStudentsSelectionView();
   }
 
   void showQuestionDialog(BuildContext context, Map<String, dynamic> question) {

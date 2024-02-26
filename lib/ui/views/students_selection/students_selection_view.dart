@@ -67,7 +67,7 @@ class StudentsSelectionView extends StatelessWidget {
                               verticalSpaceMedium,
                               ElevatedButton(
                                 onPressed: () {
-                                  viewModel.goToQuizPage();
+                                  viewModel.goToModule();
                                 },
                                 child: const Text("Start"),
                               )

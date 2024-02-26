@@ -17,4 +17,31 @@ class QuizDataServiceService {
     final sheet = ss.worksheetByTitle(Config.classOneSheet);
     await sheet?.values.insertRow(rowIndex, ['TRUE'], fromColumn: 10);
   }
+
+  Future<void> updateEarnedPoints(String questionId, int earnedPoints) async {
+    final ss = await _gsheets.spreadsheet(Config.questionSpreadsheet);
+    final sheet = ss.worksheetByTitle(Config.classOneSheet);
+    await sheet?.values.insertValueByKeys(earnedPoints,
+        columnKey: "EarnedPoints", rowKey: questionId);
+  }
+
+  Future<void> resetEarnedPoints() async {
+    final ss = await _gsheets.spreadsheet(Config.questionSpreadsheet);
+    final sheet = ss.worksheetByTitle(Config.classOneSheet);
+    final quizData = await sheet?.values.map.allRows();
+
+    if (quizData != null) {
+      for (var question in quizData) {
+        final rowKey = question["QuestionNumber"];
+
+        // Update the "EarnedPoints" column value to 0
+        await sheet?.values.insertValueByKeys(
+          0, // Value to insert (0 in this case)
+          columnKey: "EarnedPoints", // Column key for "EarnedPoints" column
+          rowKey: rowKey!, // Row key
+          eager: false, // Don't eagerly update
+        );
+      }
+    }
+  }
 }

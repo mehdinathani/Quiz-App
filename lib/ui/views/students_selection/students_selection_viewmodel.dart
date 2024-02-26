@@ -3,6 +3,7 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:quizapp/app/app.locator.dart';
 import 'package:quizapp/app/app.router.dart';
 import 'package:quizapp/model/students_data.dart';
+import 'package:quizapp/services/module_selection_service.dart';
 import 'package:quizapp/services/students_data_service_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -10,6 +11,8 @@ import 'package:stacked_services/stacked_services.dart';
 class StudentsSelectionViewModel extends BaseViewModel {
   final _studentsDataService = locator<StudentsDataServiceService>();
   final NavigationService _navigationService = locator<NavigationService>();
+  final ModuleSelectionService _moduleSelectionService =
+      locator<ModuleSelectionService>();
 
   late StudentsData studentsData;
 
@@ -66,6 +69,28 @@ class StudentsSelectionViewModel extends BaseViewModel {
       }
     } on Exception catch (e) {
       debugPrint('Error scanning QR code: $e');
+    }
+  }
+
+  goToExamView() {
+    _navigationService.navigateToExamView();
+  }
+
+  void goToModule() {
+    CurrentModuleType selectedModule =
+        _moduleSelectionService.getSelectedModule();
+    switch (selectedModule) {
+      case CurrentModuleType.quiz:
+        _navigationService.navigateToQuizView();
+        break;
+      case CurrentModuleType.exam:
+        _navigationService.navigateToExamView();
+        break;
+      case CurrentModuleType.attendance:
+        _navigationService.navigateToFastAttendanceView();
+        break;
+      default:
+        _navigationService.navigateToHomeView();
     }
   }
 }

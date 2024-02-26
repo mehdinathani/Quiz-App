@@ -4,6 +4,7 @@ import 'package:quizapp/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:quizapp/services/students_data_service_service.dart';
 import 'package:quizapp/services/quiz_data_service_service.dart';
+import 'package:quizapp/services/module_selection_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -15,6 +16,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<StudentsDataServiceService>(
       onMissingStub: OnMissingStub.returnDefault),
   MockSpec<QuizDataServiceService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<ModuleSelectionService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -23,6 +25,7 @@ void registerServices() {
   getAndRegisterDialogService();
   getAndRegisterStudentsDataServiceService();
   getAndRegisterQuizDataServiceService();
+  getAndRegisterModuleSelectionService();
 // @stacked-mock-register
 }
 
@@ -87,6 +90,13 @@ MockQuizDataServiceService getAndRegisterQuizDataServiceService() {
   _removeRegistrationIfExists<QuizDataServiceService>();
   final service = MockQuizDataServiceService();
   locator.registerSingleton<QuizDataServiceService>(service);
+  return service;
+}
+
+MockModuleSelectionService getAndRegisterModuleSelectionService() {
+  _removeRegistrationIfExists<ModuleSelectionService>();
+  final service = MockModuleSelectionService();
+  locator.registerSingleton<ModuleSelectionService>(service);
   return service;
 }
 // @stacked-mock-create

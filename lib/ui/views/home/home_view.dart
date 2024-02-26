@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quizapp/services/module_selection_service.dart';
 import 'package:stacked/stacked.dart';
 
 import 'home_viewmodel.dart';
@@ -21,14 +22,22 @@ class HomeView extends StackedView<HomeViewModel> {
             children: [
               ElevatedButton(
                   onPressed: () {
+                    viewModel.setModule(CurrentModuleType.quiz);
                     viewModel.navigateToStudentSelection();
                   },
                   child: const Text("Quiz")),
               ElevatedButton(
                   onPressed: () {
-                    viewModel.navigateToExamView();
+                    viewModel.setModule(CurrentModuleType.exam);
+                    viewModel.goToStudentSelection();
+                    // viewModel.navigateToExamView();
                   },
-                  child: const Text("Exam View"))
+                  child: const Text("Exam View")),
+              ElevatedButton(
+                  onPressed: () {
+                    viewModel.navigateToFastAttendance();
+                  },
+                  child: const Text("Fast Attendance"))
             ],
           ),
         ),

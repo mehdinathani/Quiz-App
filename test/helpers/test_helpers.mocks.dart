@@ -9,6 +9,7 @@ import 'dart:ui' as _i6;
 import 'package:flutter/material.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i3;
+import 'package:quizapp/services/module_selection_service.dart' as _i9;
 import 'package:quizapp/services/quiz_data_service_service.dart' as _i8;
 import 'package:quizapp/services/students_data_service_service.dart' as _i7;
 import 'package:stacked_services/stacked_services.dart' as _i2;
@@ -778,3 +779,9 @@ class MockQuizDataServiceService extends _i1.Mock
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
 }
+
+/// A class which mocks [ModuleSelectionService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockModuleSelectionService extends _i1.Mock
+    implements _i9.ModuleSelectionService {}

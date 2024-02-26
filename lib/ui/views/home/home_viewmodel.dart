@@ -2,6 +2,7 @@ import 'package:quizapp/app/app.bottomsheets.dart';
 import 'package:quizapp/app/app.dialogs.dart';
 import 'package:quizapp/app/app.locator.dart';
 import 'package:quizapp/app/app.router.dart';
+import 'package:quizapp/services/module_selection_service.dart';
 import 'package:quizapp/ui/common/app_strings.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -10,6 +11,8 @@ class HomeViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
   final _bottomSheetService = locator<BottomSheetService>();
   final _navigationService = locator<NavigationService>();
+  final ModuleSelectionService _moduleSelectionService =
+      locator<ModuleSelectionService>();
 
   String get counterLabel => 'Counter is: $_counter';
 
@@ -42,5 +45,17 @@ class HomeViewModel extends BaseViewModel {
 
   navigateToExamView() {
     _navigationService.navigateToExamView();
+  }
+
+  navigateToFastAttendance() {
+    _navigationService.navigateToFastAttendanceView();
+  }
+
+  goToStudentSelection() {
+    _navigationService.navigateToStudentsSelectionView();
+  }
+
+  setModule(module) {
+    _moduleSelectionService.setSelectedModule(module);
   }
 }

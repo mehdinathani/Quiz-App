@@ -5,6 +5,7 @@ import 'package:quizapp/app/app.router.dart';
 import 'package:quizapp/model/students_data.dart';
 import 'package:quizapp/services/module_selection_service.dart';
 import 'package:quizapp/services/students_data_service_service.dart';
+import 'package:quizapp/ui/common/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -42,6 +43,8 @@ class StudentsSelectionViewModel extends BaseViewModel {
       );
       _studentsDataService.currentStudentRollNumber = rollNumber;
       _studentsDataService.updateCurrentStudentData(selectedStudent);
+      var csg = selectedStudent!["GROUP"]!.toLowerCase();
+      currentStudentGroup = csg.toLowerCase();
       notifyListeners(); // Trigger UI update
     }
   }

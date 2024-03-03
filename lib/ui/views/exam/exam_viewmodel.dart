@@ -1,9 +1,14 @@
+import 'dart:developer';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:quizapp/app/app.locator.dart';
 import 'package:quizapp/app/app.router.dart';
 import 'package:quizapp/model/quiz_data.dart';
 import 'package:quizapp/services/quiz_data_service_service.dart';
 import 'package:quizapp/services/students_data_service_service.dart';
+import 'package:quizapp/ui/common/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -14,6 +19,10 @@ class ExamViewModel extends BaseViewModel {
   num studentScore = 0;
   TextEditingController userTextController = TextEditingController();
   final NavigationService _navigationService = NavigationService();
+  String group = "";
+  String currentStudentExamScore = '';
+  Map<String, String> currentStudentExamScoreMap = {};
+  bool isExamDone = false;
 
   late QuizData quizData;
   Map<String, String>? currentStudentData;
@@ -28,6 +37,9 @@ class ExamViewModel extends BaseViewModel {
     if (quizDataFromService != null) {
       quizData = QuizData(quizDataFromService);
     }
+    group = currentStudentData!["GROUP"]!;
+    currentStudentExamScore = currentStudentData!["Final_Exam"]!;
+    checkStudentExamResult();
     setBusy(false);
   }
 
@@ -200,6 +212,11 @@ class ExamViewModel extends BaseViewModel {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextField(
+          onSubmitted: (value) {
+            checkAnswer(question, userTextController.text, context);
+            userTextController.clear();
+          },
+          keyboardType: TextInputType.number,
           controller: userTextController,
           decoration: const InputDecoration(labelText: 'Enter Marks'),
         ),
@@ -225,5 +242,115 @@ class ExamViewModel extends BaseViewModel {
         ),
       ],
     );
+  }
+
+  Color updateBgColor() {
+    Color bgColor;
+    switch (group.toLowerCase()) {
+      case "junior":
+        bgColor = juniorColor;
+        break;
+      case "middle":
+        bgColor = middleColor;
+        break;
+
+      default:
+        bgColor = Colors.white;
+        break;
+    }
+    return bgColor;
+  }
+
+  checkStudentExamResult() {
+    if (currentStudentExamScore == "No Score") {
+      isExamDone = false;
+    } else {
+      isExamDone = true;
+      notifyListeners();
+    }
+  }
+
+  void showAdminPasswordDialog(BuildContext context) {
+    String adminPassword = '';
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Enter Admin Password'),
+          content: TextField(
+            onChanged: (value) {
+              adminPassword = value;
+            },
+            obscureText: true,
+            decoration: InputDecoration(hintText: 'Admin Password'),
+          ),
+          actions: <Widget>[
+            ElevatedButton(
+              onPressed: () async {
+                Navigator.of(context).pop(); // Close the dialog
+                if (adminPassword == 'admin') {
+                  // Go as normal if the admin password is correct
+                  isExamDone = false;
+                  await getCurrentStudentScore();
+                  log(currentStudentExamScoreMap.toString());
+                  updateQuizDataWithScores();
+                  rebuildUi();
+                } else {
+                  // Show error message if the admin password is incorrect
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Incorrect Password'),
+                        content: Text('The admin password is incorrect.'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop(); // Close the dialog
+                            },
+                            child: Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }
+              },
+              child: Text('OK'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: Text('Cancel'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<Map<String, String>> getCurrentStudentScore() async {
+    currentStudentExamScoreMap = await _studentsDataService
+        .getStudentExamData(currentStudentData!['Roll No']!);
+    return currentStudentExamScoreMap;
+  }
+
+  void updateQuizDataWithScores() {
+    // Iterate over the quizzes in quizData
+    for (int i = 0; i < quizData.quizzes.length; i++) {
+      final question = quizData.quizzes[i];
+      final questionNumber = question['QuestionNumber'];
+
+      // Retrieve the score for the current question from currentStudentExamScoreMap
+      final earnedPoints = currentStudentExamScoreMap['Q$questionNumber'];
+
+      // Update the EarnedPoints of the question in quizData
+      if (earnedPoints != null) {
+        quizData.updateEarnedPoints(questionNumber, int.parse(earnedPoints));
+      }
+    }
+    studentScore = int.tryParse(currentStudentExamScoreMap['Total Marks']!)!;
   }
 }

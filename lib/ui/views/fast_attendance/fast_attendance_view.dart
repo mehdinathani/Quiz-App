@@ -19,7 +19,7 @@ class FastAttendanceView extends StackedView<FastAttendanceViewModel> {
           Expanded(
             child: Center(
               child: ElevatedButton(
-                onPressed: viewModel.startBarcodeScanStream,
+                onPressed: viewModel.scanQRCode,
                 child: Text('Scan QR Code'),
               ),
             ),
@@ -28,7 +28,7 @@ class FastAttendanceView extends StackedView<FastAttendanceViewModel> {
             child: Center(
               child: Text(
                 'Scan result: ${viewModel.scanResult}',
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
             ),
           ),

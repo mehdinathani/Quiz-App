@@ -53,11 +53,37 @@ class StudentsDataServiceService {
       name,
       fathersName,
       group,
-      ...earnedPointsPerQuestion.map((earnedPoints) => earnedPoints.toString()),
       totalScore.toString(),
+      ...earnedPointsPerQuestion.map((earnedPoints) => earnedPoints.toString()),
       invigilatorName,
     ];
 
     await sheet?.values.appendRow(row);
+  }
+
+  Future<Map<String, String>> getStudentExamData(String rollNumber) async {
+    final ss = await _gsheets.spreadsheet(Config.studentsDataSpreadSheet);
+    final sheet = ss.worksheetByTitle(Config.stundentExamResult);
+
+    // Fetch the row corresponding to the given roll number
+    final rowData = await sheet?.values.map.rowByKey(rollNumber);
+
+    if (rowData == null) {
+      // Roll number not found, handle the error
+      throw Exception('Roll number not found');
+    }
+
+    // Assuming the headers are in the first row
+    final headers = await sheet?.values.row(1);
+
+    if (headers == null) {
+      // Headers not found, handle the error
+      throw Exception('Headers not found');
+    }
+
+    // Create a map of headers and their corresponding values
+    final examData = rowData;
+
+    return examData;
   }
 }

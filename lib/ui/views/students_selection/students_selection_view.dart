@@ -29,7 +29,7 @@ class StudentsSelectionView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const Text("Select Roll Number from the below List."),
-                        DropdownButton<String>(
+                        DropdownButtonFormField<String>(
                           hint: const Text('Select Roll Number'),
                           value: viewModel.selectedRollNumber,
                           onChanged: viewModel.setSelectedRollNumber,
@@ -64,6 +64,12 @@ class StudentsSelectionView extends StatelessWidget {
                               verticalSpaceMedium,
                               Text(
                                   "Class: ${viewModel.selectedStudent!["GROUP"]}"),
+                              verticalSpaceMedium,
+                              Text(
+                                  "Oral Test: ${viewModel.selectedStudent!["Oral_Exam"]}"),
+                              verticalSpaceMedium,
+                              Text(
+                                  "Final Exam: ${viewModel.selectedStudent!["Final_Exam"]}"),
                               verticalSpaceMedium,
                               ElevatedButton(
                                 onPressed: () {

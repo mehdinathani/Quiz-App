@@ -1,13 +1,15 @@
 import 'package:gsheets/gsheets.dart';
+import 'package:quizapp/ui/common/ui_helpers.dart';
 import 'package:quizapp/ui/config.dart';
 
 class QuizDataServiceService {
   static const _credentials = Config.credentials;
   final _gsheets = GSheets(_credentials);
+  var currentExamSheet = Config.classOneSheet;
 
   Future<List<Map<String, String>>?> fetchAllQuizData() async {
     final ss = await _gsheets.spreadsheet(Config.questionSpreadsheet);
-    final sheet = ss.worksheetByTitle(Config.classOneSheet);
+    final sheet = ss.worksheetByTitle(getExamSheetName(currentStudentGroup));
     final quizData = await sheet?.values.map.allRows();
     return quizData;
   }
@@ -43,5 +45,27 @@ class QuizDataServiceService {
         );
       }
     }
+  }
+
+  getExamSheetName(group) {
+    switch (group) {
+      case "junior":
+        currentExamSheet = Config.classOneSheet;
+        break;
+
+      case "middle":
+        currentExamSheet = Config.classTwoSheet;
+        break;
+      case "senior":
+        currentExamSheet = Config.classthreeSheet;
+        break;
+      case "higher":
+        currentExamSheet = Config.classfourSheet;
+        break;
+      default:
+        currentExamSheet = Config.classOneSheet;
+        break;
+    }
+    return currentExamSheet;
   }
 }

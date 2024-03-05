@@ -48,17 +48,38 @@ class StudentsDataServiceService {
     final ss = await _gsheets.spreadsheet(Config.studentsDataSpreadSheet);
     final sheet = ss.worksheetByTitle(Config.stundentExamResult);
 
-    final row = [
-      rollNumber,
-      name,
-      fathersName,
-      group,
-      totalScore.toString(),
-      ...earnedPointsPerQuestion.map((earnedPoints) => earnedPoints.toString()),
-      invigilatorName,
-    ];
+    // Check if the roll number already exists
+    final data = await sheet?.values.allRows();
+    final existingRowIndex =
+        data!.indexWhere((row) => row.contains(rollNumber));
 
-    await sheet?.values.appendRow(row);
+    if (existingRowIndex != -1) {
+      // If the row exists, update the row with the new score
+      final updatedRow = [
+        rollNumber,
+        name,
+        fathersName,
+        group,
+        totalScore.toString(),
+        ...earnedPointsPerQuestion
+            .map((earnedPoints) => earnedPoints.toString()),
+        invigilatorName,
+      ];
+      await sheet?.values.insertRow(existingRowIndex + 1, updatedRow);
+    } else {
+      // If the row does not exist, add a new row
+      final newRow = [
+        rollNumber,
+        name,
+        fathersName,
+        group,
+        totalScore.toString(),
+        ...earnedPointsPerQuestion
+            .map((earnedPoints) => earnedPoints.toString()),
+        invigilatorName,
+      ];
+      await sheet?.values.appendRow(newRow);
+    }
   }
 
   Future<Map<String, String>> getStudentExamData(String rollNumber) async {

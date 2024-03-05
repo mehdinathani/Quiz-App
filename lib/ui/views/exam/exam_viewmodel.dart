@@ -1,8 +1,6 @@
 import 'dart:developer';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:quizapp/app/app.locator.dart';
 import 'package:quizapp/app/app.router.dart';
 import 'package:quizapp/model/quiz_data.dart';
@@ -23,6 +21,7 @@ class ExamViewModel extends BaseViewModel {
   String currentStudentExamScore = '';
   Map<String, String> currentStudentExamScoreMap = {};
   bool isExamDone = false;
+  bool reExam = false;
 
   late QuizData quizData;
   Map<String, String>? currentStudentData;
@@ -292,6 +291,7 @@ class ExamViewModel extends BaseViewModel {
                 if (adminPassword == 'admin') {
                   // Go as normal if the admin password is correct
                   isExamDone = false;
+                  reExam = true;
                   await getCurrentStudentScore();
                   log(currentStudentExamScoreMap.toString());
                   updateQuizDataWithScores();

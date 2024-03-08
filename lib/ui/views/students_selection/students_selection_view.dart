@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quizapp/ui/common/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
+import 'package:dropdown_search/dropdown_search.dart'; // Import the package
 
 import 'students_selection_viewmodel.dart';
 
@@ -29,17 +30,27 @@ class StudentsSelectionView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const Text("Select Roll Number from the below List."),
-                        DropdownButtonFormField<String>(
-                          hint: const Text('Select Roll Number'),
-                          value: viewModel.selectedRollNumber,
+                        DropdownSearch<String>(
+                          popupProps: const PopupProps.menu(
+                            showSearchBox: true,
+                            showSelectedItems: true,
+                            title: Text("Select Roll Number"),
+                          ),
+                          selectedItem: viewModel.selectedRollNumber,
                           onChanged: viewModel.setSelectedRollNumber,
-                          items: viewModel.rollNumbers
-                              .map((rollNumber) => DropdownMenuItem(
-                                    value: rollNumber,
-                                    child: Text(rollNumber),
-                                  ))
-                              .toList(),
+                          items: viewModel.rollNumbers,
                         ),
+                        // DropdownButtonFormField<String>(
+                        //   hint: const Text('Select Roll Number'),
+                        //   value: viewModel.selectedRollNumber,
+                        //   onChanged: viewModel.setSelectedRollNumber,
+                        //   items: viewModel.rollNumbers
+                        //       .map((rollNumber) => DropdownMenuItem(
+                        //             value: rollNumber,
+                        //             child: Text(rollNumber),
+                        //           ))
+                        //       .toList(),
+                        // ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.05,
                         ),

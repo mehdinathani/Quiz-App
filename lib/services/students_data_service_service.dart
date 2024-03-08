@@ -107,4 +107,31 @@ class StudentsDataServiceService {
 
     return examData;
   }
+
+  Future<void> recordAttendance({
+    required String referenceId,
+    required String rollNumber,
+    required String date,
+    required String time,
+    required String attendanceType,
+    required String username,
+  }) async {
+    final ss = await _gsheets.spreadsheet(Config.studentsDataSpreadSheet);
+    final sheet = ss.worksheetByTitle(Config.attendanceInput);
+
+    // Create a new row for attendance record
+    final newRecord = [
+      referenceId,
+      rollNumber,
+      DateTime.now().toString(), // Date
+      attendanceType,
+      date,
+      time,
+
+      username,
+    ];
+
+    // Append the new attendance record to the sheet
+    await sheet?.values.appendRow(newRecord);
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:quizapp/app/app.locator.dart';
 import 'package:quizapp/app/app.router.dart';
@@ -29,6 +30,7 @@ class FastAttendanceViewModel extends BaseViewModel {
       );
       if (barcodeScanRes != '-1') {
         _scanResult = barcodeScanRes;
+        setSelectedRollNumber(_scanResult);
         notifyListeners(); // Notify the UI of the new scan result
       }
     } finally {
@@ -74,14 +76,14 @@ class FastAttendanceViewModel extends BaseViewModel {
     if (selectedRollNumber != null) {
       // Construct reference ID
       String referenceId =
-          'R-${selectedRollNumber!}-${DateTime.now().year}${DateTime.now().month.toString().padLeft(2, '0')}${DateTime.now().day.toString().padLeft(2, '0')}';
+          'R-${selectedRollNumber!}-${DateTime.now().month.toString().padLeft(2, '0')}${DateTime.now().day.toString().padLeft(2, '0')}${DateTime.now().year}';
 
       // Additional data for attendance record
       String date =
           '${DateTime.now().year}-${DateTime.now().month.toString().padLeft(2, '0')}-${DateTime.now().day.toString().padLeft(2, '0')}';
       String time =
           '${DateTime.now().hour.toString().padLeft(2, '0')}:${DateTime.now().minute.toString().padLeft(2, '0')}:${DateTime.now().second.toString().padLeft(2, '0')}';
-      String attendanceType = 'Present'; // Assuming default is present
+      String attendanceType = 'Present (In)'; // Assuming default is present
       String username = 'username'; // Assuming username is stored somewhere
 
       try {
@@ -105,6 +107,24 @@ class FastAttendanceViewModel extends BaseViewModel {
     } else {
       // No roll number selected, handle accordingly
     }
+  }
+
+  Color updateBgColor() {
+    Color bgColor;
+    var group = currentStudentGroup;
+    switch (group.toLowerCase()) {
+      case "junior":
+        bgColor = juniorColor;
+        break;
+      case "middle":
+        bgColor = middleColor;
+        break;
+
+      default:
+        bgColor = Colors.white;
+        break;
+    }
+    return bgColor;
   }
 
   navigateToHome() {

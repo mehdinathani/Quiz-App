@@ -5,6 +5,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:quizapp/services/students_data_service_service.dart';
 import 'package:quizapp/services/quiz_data_service_service.dart';
 import 'package:quizapp/services/module_selection_service.dart';
+import 'package:quizapp/services/firebase_auth_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -17,6 +18,7 @@ import 'test_helpers.mocks.dart';
       onMissingStub: OnMissingStub.returnDefault),
   MockSpec<QuizDataServiceService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<ModuleSelectionService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<FirebaseAuthService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -26,6 +28,7 @@ void registerServices() {
   getAndRegisterStudentsDataServiceService();
   getAndRegisterQuizDataServiceService();
   getAndRegisterModuleSelectionService();
+  getAndRegisterFirebaseAuthService();
 // @stacked-mock-register
 }
 
@@ -97,6 +100,13 @@ MockModuleSelectionService getAndRegisterModuleSelectionService() {
   _removeRegistrationIfExists<ModuleSelectionService>();
   final service = MockModuleSelectionService();
   locator.registerSingleton<ModuleSelectionService>(service);
+  return service;
+}
+
+MockFirebaseAuthService getAndRegisterFirebaseAuthService() {
+  _removeRegistrationIfExists<FirebaseAuthService>();
+  final service = MockFirebaseAuthService();
+  locator.registerSingleton<FirebaseAuthService>(service);
   return service;
 }
 // @stacked-mock-create

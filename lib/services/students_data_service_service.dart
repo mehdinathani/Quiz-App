@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:gsheets/gsheets.dart';
 import 'package:quizapp/ui/config.dart';
 
@@ -118,6 +119,19 @@ class StudentsDataServiceService {
   }) async {
     final ss = await _gsheets.spreadsheet(Config.studentsDataSpreadSheet);
     final sheet = ss.worksheetByTitle(Config.attendanceInput);
+
+    // Fetch all rows and check if the referenceId already exists
+    final rows = await sheet?.values.map.allRows();
+    final existingRow = rows?.firstWhere(
+      (row) => row.containsValue(referenceId),
+      orElse: () => {},
+    );
+
+    // If the referenceId exists, do not add a new row
+    if (existingRow!.isNotEmpty) {
+      debugPrint("Duplicate Attendance");
+      return;
+    }
 
     // Create a new row for attendance record
     final newRecord = [

@@ -14,6 +14,35 @@ class HomeView extends StackedView<HomeViewModel> {
     Widget? child,
   ) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Swift Manager Pro"),
+        centerTitle: true,
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text(
+                'Menu',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              title: const Text('Sign Out'),
+              onTap: () {
+                viewModel.signOut();
+              },
+            )
+          ],
+        ),
+      ),
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.all(18),

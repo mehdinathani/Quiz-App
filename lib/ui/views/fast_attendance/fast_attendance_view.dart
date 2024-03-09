@@ -15,65 +15,90 @@ class FastAttendanceView extends StackedView<FastAttendanceViewModel> {
     Widget? child,
   ) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Swift Attendance"),
+      ),
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: Column(
-        children: [
-          verticalSpaceLarge,
-          DropdownSearch<String>(
-            popupProps: const PopupProps.menu(
-              showSearchBox: true,
-              showSelectedItems: true,
-              title: Text("Select Roll Number"),
-            ),
-            selectedItem: viewModel.selectedRollNumber,
-            onChanged: viewModel.setSelectedRollNumber,
-            items: viewModel.rollNumbers,
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Center(
-                  child: ElevatedButton(
-                    onPressed: viewModel.scanQRCode,
-                    child: Text('Scan QR Code'),
+      body: Padding(
+        padding: const EdgeInsets.all(18.0),
+        child: viewModel.isBusy
+            ? const Center(child: CircularProgressIndicator())
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  verticalSpaceLarge,
+                  DropdownSearch<String>(
+                    dropdownDecoratorProps: const DropDownDecoratorProps(
+                        dropdownSearchDecoration: InputDecoration()),
+                    popupProps: const PopupProps.menu(
+                      showSearchBox: true,
+                      showSelectedItems: true,
+                      title: Text("Select Roll Number"),
+                    ),
+                    selectedItem: viewModel.selectedRollNumber,
+                    onChanged: viewModel.setSelectedRollNumber,
+                    items: viewModel.rollNumbers,
                   ),
-                ),
-              ),
-              Expanded(
-                child: Center(
-                  child: Text(
-                    'Scan result: ${viewModel.scanResult}',
-                    style: const TextStyle(fontSize: 18),
+                  verticalSpaceSmall,
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Center(
+                          child: ElevatedButton(
+                            onPressed: viewModel.scanQRCode,
+                            child: const Text('Scan QR Code'),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Center(
+                          child: Text(
+                            'Scan result: ${viewModel.scanResult}',
+                            style: const TextStyle(fontSize: 18),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
+                  verticalSpaceMedium,
+                  if (viewModel.selectedStudent != null)
+                    Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          color: viewModel.updateBgColor(),
+                          border: Border.all(
+                            color: Colors.black,
+                          )),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          verticalSpaceSmall,
+                          Text(
+                              'Name: ${viewModel.selectedStudent!['Name'] ?? 'Loading...'}'),
+                          verticalSpaceSmall,
+                          Text(
+                              'Father\'s Name: ${viewModel.selectedStudent!['Father\'s Name'] ?? 'Loading...'}'),
+                          verticalSpaceSmall,
+                          Text("Class: ${viewModel.selectedStudent!["GROUP"]}"),
+                          verticalSpaceSmall,
+                          Text(
+                              "Oral Test: ${viewModel.selectedStudent!["Oral_Exam"]}"),
+                          verticalSpaceSmall,
+                          Text(
+                              "Final Exam: ${viewModel.selectedStudent!["Final_Exam"]}"),
+                          verticalSpaceSmall,
+                          ElevatedButton(
+                            onPressed: () {
+                              viewModel.recordAttendance();
+                            },
+                            child: const Text("Mark"),
+                          ),
+                          verticalSpaceSmall,
+                        ],
+                      ),
+                    ),
+                ],
               ),
-            ],
-          ),
-          if (viewModel.selectedStudent != null)
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                    'Name: ${viewModel.selectedStudent!['Name'] ?? 'Loading...'}'),
-                verticalSpace(18),
-                Text(
-                    'Father\'s Name: ${viewModel.selectedStudent!['Father\'s Name'] ?? 'Loading...'}'),
-                verticalSpaceMedium,
-                Text("Class: ${viewModel.selectedStudent!["GROUP"]}"),
-                verticalSpaceMedium,
-                Text("Oral Test: ${viewModel.selectedStudent!["Oral_Exam"]}"),
-                verticalSpaceMedium,
-                Text("Final Exam: ${viewModel.selectedStudent!["Final_Exam"]}"),
-                verticalSpaceMedium,
-                ElevatedButton(
-                  onPressed: () {
-                    viewModel.recordAttendance();
-                  },
-                  child: const Text("Mark"),
-                )
-              ],
-            ),
-        ],
       ),
     );
   }

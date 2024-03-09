@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "593508116669",
+    "project_id": "swiftmanagerpro",
+    "storage_bucket": "swiftmanagerpro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593508116669:android:20c81870beb1785353efd4",
+        "android_client_info": {
+          "package_name": "com.example.quizapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBl4P3Wy2isk-pMYEUaxq-I-RBimHZdyiI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

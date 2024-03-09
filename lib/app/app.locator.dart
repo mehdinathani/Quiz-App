@@ -11,6 +11,7 @@ import 'package:stacked_services/src/dialog/dialog_service.dart';
 import 'package:stacked_services/src/navigation/navigation_service.dart';
 import 'package:stacked_shared/stacked_shared.dart';
 
+import '../services/firebase_auth_service.dart';
 import '../services/module_selection_service.dart';
 import '../services/quiz_data_service_service.dart';
 import '../services/students_data_service_service.dart';
@@ -32,4 +33,5 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => StudentsDataServiceService());
   locator.registerLazySingleton(() => QuizDataServiceService());
   locator.registerLazySingleton(() => ModuleSelectionService());
+  locator.registerLazySingleton(() => FirebaseAuthService());
 }

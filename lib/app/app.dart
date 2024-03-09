@@ -11,6 +11,8 @@ import 'package:quizapp/ui/views/quiz/quiz_view.dart';
 import 'package:quizapp/ui/views/exam/exam_view.dart';
 import 'package:quizapp/ui/views/fast_attendance/fast_attendance_view.dart';
 import 'package:quizapp/services/module_selection_service.dart';
+import 'package:quizapp/services/firebase_auth_service.dart';
+import 'package:quizapp/ui/views/login/login_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -21,6 +23,7 @@ import 'package:quizapp/services/module_selection_service.dart';
     MaterialRoute(page: QuizView),
     MaterialRoute(page: ExamView),
     MaterialRoute(page: FastAttendanceView),
+    MaterialRoute(page: LoginView),
 // @stacked-route
   ],
   dependencies: [
@@ -30,6 +33,7 @@ import 'package:quizapp/services/module_selection_service.dart';
     LazySingleton(classType: StudentsDataServiceService),
     LazySingleton(classType: QuizDataServiceService),
     LazySingleton(classType: ModuleSelectionService),
+    LazySingleton(classType: FirebaseAuthService),
 // @stacked-service
   ],
   bottomsheets: [

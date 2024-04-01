@@ -54,19 +54,26 @@ class HomeView extends StackedView<HomeViewModel> {
                     viewModel.setModule(CurrentModuleType.quiz);
                     viewModel.navigateToStudentSelection();
                   },
-                  child: const Text("Quiz")),
+                  child: const Text("Swift Quiz")),
               ElevatedButton(
                   onPressed: () {
                     viewModel.setModule(CurrentModuleType.exam);
                     viewModel.goToStudentSelection();
                     // viewModel.navigateToExamView();
                   },
-                  child: const Text("Exam View")),
+                  child: const Text("Swift Exam")),
+              ElevatedButton(
+                  onPressed: () {
+                    viewModel.setModule(CurrentModuleType.oral);
+                    viewModel.goToStudentSelection();
+                    // viewModel.navigateToExamView();
+                  },
+                  child: const Text("Swift Oral")),
               ElevatedButton(
                   onPressed: () {
                     viewModel.navigateToFastAttendance();
                   },
-                  child: const Text("Fast Attendance"))
+                  child: const Text("Swift Attendance"))
             ],
           ),
         ),

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:quizapp/ui/common/ui_helpers.dart';
@@ -15,6 +16,7 @@ class LoginView extends StackedView<LoginViewModel> {
     Widget? child,
   ) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Container(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
@@ -27,7 +29,8 @@ class LoginView extends StackedView<LoginViewModel> {
                   CircleAvatar(
                     backgroundImage:
                         const AssetImage("assets/images/Swift.png"),
-                    radius: MediaQuery.of(context).size.width * 0.3,
+                    radius:
+                        kIsWeb ? 30 : MediaQuery.of(context).size.width * 0.3,
                   )
                 ],
               ),
@@ -42,7 +45,7 @@ class LoginView extends StackedView<LoginViewModel> {
                 labelText: 'Email',
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             TextField(
               controller: viewModel.passwordController,
               obscureText: true,
@@ -52,9 +55,11 @@ class LoginView extends StackedView<LoginViewModel> {
                 labelText: 'Password',
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: viewModel.login,
+              onPressed: () {
+                viewModel.login(context);
+              },
               child: const Text('Login'),
             ),
           ],

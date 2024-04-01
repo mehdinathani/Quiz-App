@@ -19,8 +19,13 @@ class StartupView extends StackedView<StartupViewModel> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            CircleAvatar(
+              backgroundImage: AssetImage("assets/images/Swift.png"),
+              radius: 30,
+            ),
+            verticalSpaceMedium,
             Text(
-              'STACKED',
+              'Swift Manager Pro',
               style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
             ),
             Row(

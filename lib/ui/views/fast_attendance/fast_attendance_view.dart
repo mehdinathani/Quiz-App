@@ -90,6 +90,7 @@ class FastAttendanceView extends StackedView<FastAttendanceViewModel> {
                           ElevatedButton(
                             onPressed: () {
                               viewModel.recordAttendance();
+                              viewModel.selectedStudent = null;
                             },
                             child: const Text("Mark"),
                           ),

@@ -92,6 +92,9 @@ class StudentsSelectionViewModel extends BaseViewModel {
       case CurrentModuleType.attendance:
         _navigationService.navigateToFastAttendanceView();
         break;
+      case CurrentModuleType.oral:
+        _navigationService.navigateToOralView();
+        break;
       default:
         _navigationService.navigateToHomeView();
     }

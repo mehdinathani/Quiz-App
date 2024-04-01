@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:quizapp/ui/common/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 
-import 'exam_viewmodel.dart';
+import 'oral_viewmodel.dart';
 
-class ExamView extends StackedView<ExamViewModel> {
-  const ExamView({Key? key}) : super(key: key);
+class OralView extends StackedView<OralViewModel> {
+  const OralView({Key? key}) : super(key: key);
 
   @override
   Widget builder(
     BuildContext context,
-    ExamViewModel viewModel,
+    OralViewModel viewModel,
     Widget? child,
   ) {
     return Scaffold(
@@ -55,39 +54,37 @@ class ExamView extends StackedView<ExamViewModel> {
                     )
                   : Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(18.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Name: ${viewModel.currentStudentData!['Name']!}",
-                                    style: studentHeader,
-                                  ),
-                                  Text(
-                                    "Father's Name: ${viewModel.currentStudentData!["Father's Name"]!}",
-                                    style: studentHeader,
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    "Roll Number: ${viewModel.currentStudentData!["Roll No"]!}",
-                                    style: studentHeader,
-                                  ),
-                                  Text(
-                                    "Marks: ${viewModel.studentScore.toString()}",
-                                    style: studentHeader,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                        Row(
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Name: ${viewModel.currentStudentData!['Name']!}",
+                                  style: studentHeader,
+                                ),
+                                horizontalSpaceLarge,
+                                Text(
+                                  "Father Name: ${viewModel.currentStudentData!["Father's Name"]!}",
+                                  style: studentHeader,
+                                ),
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  "Class: ${viewModel.currentStudentData!["GROUP"]!}",
+                                  style: studentHeader,
+                                ),
+                                horizontalSpaceLarge,
+                                Text(
+                                  "Marks: ${viewModel.studentScore.toString()}",
+                                  style: studentHeader,
+                                ),
+                              ],
+                            )
+                          ],
                         ),
                         Expanded(
                           child: ListView.separated(
@@ -102,12 +99,7 @@ class ExamView extends StackedView<ExamViewModel> {
                               return ListTile(
                                 tileColor: Colors.white.withOpacity(0.5),
                                 title: Text('Question ${index + 1}'),
-                                subtitle: Text(
-                                  question['Question'],
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 24),
-                                ),
+                                subtitle: Text(question['Question']),
                                 trailing: Text(
                                     "${question['EarnedPoints']} / ${question['TotalPoint']}"),
                                 onTap: () {
@@ -131,12 +123,12 @@ class ExamView extends StackedView<ExamViewModel> {
   }
 
   @override
-  ExamViewModel viewModelBuilder(
+  OralViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      ExamViewModel();
+      OralViewModel();
   @override
-  void onViewModelReady(ExamViewModel viewModel) {
+  void onViewModelReady(OralViewModel viewModel) {
     viewModel.fetchQuizData();
     super.onViewModelReady(viewModel);
   }

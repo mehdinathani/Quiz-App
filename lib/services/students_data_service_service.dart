@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gsheets/gsheets.dart';
+import 'package:quizapp/app/app.locator.dart';
+import 'package:quizapp/services/module_selection_service.dart';
 import 'package:quizapp/ui/config.dart';
 
 class StudentsDataServiceService {
   static const _credentials = Config.credentials;
+  final ModuleSelectionService _moduleSelectionService =
+      locator<ModuleSelectionService>();
   final _gsheets = GSheets(_credentials);
   String currentStudentRollNumber = "";
   Map<String, String>? currentStudentData;
@@ -47,7 +51,8 @@ class StudentsDataServiceService {
     String invigilatorName,
   ) async {
     final ss = await _gsheets.spreadsheet(Config.studentsDataSpreadSheet);
-    final sheet = ss.worksheetByTitle(Config.stundentExamResult);
+    final sheet = ss.worksheetByTitle(
+        getResultSheetName(_moduleSelectionService.getSelectedModule()));
 
     // Check if the roll number already exists
     final data = await sheet?.values.allRows();
@@ -85,7 +90,8 @@ class StudentsDataServiceService {
 
   Future<Map<String, String>> getStudentExamData(String rollNumber) async {
     final ss = await _gsheets.spreadsheet(Config.studentsDataSpreadSheet);
-    final sheet = ss.worksheetByTitle(Config.stundentExamResult);
+    final sheet = ss.worksheetByTitle(
+        getResultSheetName(_moduleSelectionService.getSelectedModule()));
 
     // Fetch the row corresponding to the given roll number
     final rowData = await sheet?.values.map.rowByKey(rollNumber);
@@ -147,5 +153,13 @@ class StudentsDataServiceService {
 
     // Append the new attendance record to the sheet
     await sheet?.values.appendRow(newRecord);
+  }
+
+  String getResultSheetName(CurrentModuleType module) {
+    if (module == CurrentModuleType.oral) {
+      return Config.stundentOralResult;
+    } else {
+      return Config.stundentExamResult;
+    }
   }
 }

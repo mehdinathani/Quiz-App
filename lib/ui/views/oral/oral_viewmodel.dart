@@ -10,7 +10,7 @@ import 'package:quizapp/ui/common/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class ExamViewModel extends BaseViewModel {
+class OralViewModel extends BaseViewModel {
   final _quizService = locator<QuizDataServiceService>();
   final StudentsDataServiceService _studentsDataService =
       locator<StudentsDataServiceService>();
@@ -37,7 +37,7 @@ class ExamViewModel extends BaseViewModel {
       quizData = QuizData(quizDataFromService);
     }
     group = currentStudentData!["GROUP"]!;
-    currentStudentExamScore = currentStudentData!["Final_Exam"]!;
+    currentStudentExamScore = currentStudentData!["Oral_Exam"]!;
     checkStudentExamResult();
     setBusy(false);
   }
@@ -276,13 +276,13 @@ class ExamViewModel extends BaseViewModel {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Enter Admin Password'),
+          title: const Text('Enter Admin Password'),
           content: TextField(
             onChanged: (value) {
               adminPassword = value;
             },
             obscureText: true,
-            decoration: InputDecoration(hintText: 'Admin Password'),
+            decoration: const InputDecoration(hintText: 'Admin Password'),
           ),
           actions: <Widget>[
             ElevatedButton(
@@ -302,14 +302,14 @@ class ExamViewModel extends BaseViewModel {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: Text('Incorrect Password'),
-                        content: Text('The admin password is incorrect.'),
+                        title: const Text('Incorrect Password'),
+                        content: const Text('The admin password is incorrect.'),
                         actions: <Widget>[
                           TextButton(
                             onPressed: () {
                               Navigator.of(context).pop(); // Close the dialog
                             },
-                            child: Text('OK'),
+                            child: const Text('OK'),
                           ),
                         ],
                       );
@@ -317,13 +317,13 @@ class ExamViewModel extends BaseViewModel {
                   );
                 }
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
               },
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
           ],
         );

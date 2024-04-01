@@ -89,3 +89,4 @@ const seniorColor = Colors.blue;
 const higherColor = Colors.white;
 
 String currentStudentGroup = "";
+String currentUserEmail = "";

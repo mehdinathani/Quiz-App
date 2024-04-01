@@ -130,4 +130,8 @@ class FastAttendanceViewModel extends BaseViewModel {
   navigateToHome() {
     _navigationService.navigateToHomeView();
   }
+
+  showSnacBar(BuildContext context, content) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: content));
+  }
 }

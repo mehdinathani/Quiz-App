@@ -3,6 +3,8 @@ import 'package:flutter/foundation.dart';
 
 class FirebaseAuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  String loginMessage = "";
+  String currentUserEmail = "";
 
   // Signs out the current user
   Future<void> signOut() async {
@@ -36,9 +38,11 @@ class FirebaseAuthService {
         debugPrint('Wrong password provided for that user.');
       } else {
         debugPrint('Error: ${e.message}');
+        loginMessage = e.message.toString();
       }
     } catch (e) {
       debugPrint('Error: $e');
+      loginMessage = e.toString();
     }
   }
 }

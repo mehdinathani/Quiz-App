@@ -2,6 +2,7 @@ enum CurrentModuleType {
   quiz,
   exam,
   attendance,
+  oral,
 }
 
 class ModuleSelectionService {

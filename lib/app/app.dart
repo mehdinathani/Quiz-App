@@ -14,6 +14,7 @@ import 'package:quizapp/services/module_selection_service.dart';
 import 'package:quizapp/services/firebase_auth_service.dart';
 import 'package:quizapp/ui/views/login/login_view.dart';
 import 'package:quizapp/ui/views/oral/oral_view.dart';
+import 'package:quizapp/ui/views/attendance_with_q_r/attendance_with_q_r_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -26,6 +27,7 @@ import 'package:quizapp/ui/views/oral/oral_view.dart';
     MaterialRoute(page: FastAttendanceView),
     MaterialRoute(page: LoginView),
     MaterialRoute(page: OralView),
+    MaterialRoute(page: AttendanceWithQRView),
 // @stacked-route
   ],
   dependencies: [

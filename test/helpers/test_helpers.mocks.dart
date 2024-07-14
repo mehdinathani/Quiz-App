@@ -11,8 +11,8 @@ import 'package:flutter/material.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i3;
 import 'package:quizapp/services/firebase_auth_service.dart' as _i10;
-import 'package:quizapp/services/module_selection_service.dart' as _i9;
-import 'package:quizapp/services/quiz_data_service_service.dart' as _i8;
+import 'package:quizapp/services/module_selection_service.dart' as _i8;
+import 'package:quizapp/services/quiz_data_service_service.dart' as _i9;
 import 'package:quizapp/services/students_data_service_service.dart' as _i7;
 import 'package:stacked_services/stacked_services.dart' as _i2;
 
@@ -817,13 +817,36 @@ class MockStudentsDataServiceService extends _i1.Mock
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
+
+  @override
+  String getResultSheetName(_i8.CurrentModuleType? module) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getResultSheetName,
+          [module],
+        ),
+        returnValue: _i3.dummyValue<String>(
+          this,
+          Invocation.method(
+            #getResultSheetName,
+            [module],
+          ),
+        ),
+        returnValueForMissingStub: _i3.dummyValue<String>(
+          this,
+          Invocation.method(
+            #getResultSheetName,
+            [module],
+          ),
+        ),
+      ) as String);
 }
 
 /// A class which mocks [QuizDataServiceService].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockQuizDataServiceService extends _i1.Mock
-    implements _i8.QuizDataServiceService {
+    implements _i9.QuizDataServiceService {
   @override
   String get currentExamSheet => (super.noSuchMethod(
         Invocation.getter(#currentExamSheet),
@@ -894,15 +917,73 @@ class MockQuizDataServiceService extends _i1.Mock
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
+
+  @override
+  String getResultSheetName(_i8.CurrentModuleType? module) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getResultSheetName,
+          [module],
+        ),
+        returnValue: _i3.dummyValue<String>(
+          this,
+          Invocation.method(
+            #getResultSheetName,
+            [module],
+          ),
+        ),
+        returnValueForMissingStub: _i3.dummyValue<String>(
+          this,
+          Invocation.method(
+            #getResultSheetName,
+            [module],
+          ),
+        ),
+      ) as String);
+
+  @override
+  String getExamSheetName(
+    String? group,
+    _i8.CurrentModuleType? module,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getExamSheetName,
+          [
+            group,
+            module,
+          ],
+        ),
+        returnValue: _i3.dummyValue<String>(
+          this,
+          Invocation.method(
+            #getExamSheetName,
+            [
+              group,
+              module,
+            ],
+          ),
+        ),
+        returnValueForMissingStub: _i3.dummyValue<String>(
+          this,
+          Invocation.method(
+            #getExamSheetName,
+            [
+              group,
+              module,
+            ],
+          ),
+        ),
+      ) as String);
 }
 
 /// A class which mocks [ModuleSelectionService].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockModuleSelectionService extends _i1.Mock
-    implements _i9.ModuleSelectionService {
+    implements _i8.ModuleSelectionService {
   @override
-  void setSelectedModule(_i9.CurrentModuleType? module) => super.noSuchMethod(
+  void setSelectedModule(_i8.CurrentModuleType? module) => super.noSuchMethod(
         Invocation.method(
           #setSelectedModule,
           [module],
@@ -911,14 +992,14 @@ class MockModuleSelectionService extends _i1.Mock
       );
 
   @override
-  _i9.CurrentModuleType getSelectedModule() => (super.noSuchMethod(
+  _i8.CurrentModuleType getSelectedModule() => (super.noSuchMethod(
         Invocation.method(
           #getSelectedModule,
           [],
         ),
-        returnValue: _i9.CurrentModuleType.quiz,
-        returnValueForMissingStub: _i9.CurrentModuleType.quiz,
-      ) as _i9.CurrentModuleType);
+        returnValue: _i8.CurrentModuleType.quiz,
+        returnValueForMissingStub: _i8.CurrentModuleType.quiz,
+      ) as _i8.CurrentModuleType);
 }
 
 /// A class which mocks [FirebaseAuthService].
@@ -944,6 +1025,28 @@ class MockFirebaseAuthService extends _i1.Mock
         Invocation.setter(
           #loginMessage,
           _loginMessage,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  String get currentUserEmail => (super.noSuchMethod(
+        Invocation.getter(#currentUserEmail),
+        returnValue: _i3.dummyValue<String>(
+          this,
+          Invocation.getter(#currentUserEmail),
+        ),
+        returnValueForMissingStub: _i3.dummyValue<String>(
+          this,
+          Invocation.getter(#currentUserEmail),
+        ),
+      ) as String);
+
+  @override
+  set currentUserEmail(String? _currentUserEmail) => super.noSuchMethod(
+        Invocation.setter(
+          #currentUserEmail,
+          _currentUserEmail,
         ),
         returnValueForMissingStub: null,
       );

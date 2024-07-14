@@ -63,6 +63,10 @@ class HomeViewModel extends BaseViewModel {
     _navigationService.navigateToStudentsSelectionView();
   }
 
+  navigateToQRAttendance() {
+    _navigationService.navigateToAttendanceWithQRView();
+  }
+
   setModule(module) {
     _moduleSelectionService.setSelectedModule(module);
   }

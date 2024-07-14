@@ -5,8 +5,10 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i10;
+import 'package:flutter/material.dart' as _i11;
 import 'package:flutter/material.dart';
+import 'package:quizapp/ui/views/attendance_with_q_r/attendance_with_q_r_view.dart'
+    as _i10;
 import 'package:quizapp/ui/views/exam/exam_view.dart' as _i6;
 import 'package:quizapp/ui/views/fast_attendance/fast_attendance_view.dart'
     as _i7;
@@ -18,7 +20,7 @@ import 'package:quizapp/ui/views/startup/startup_view.dart' as _i3;
 import 'package:quizapp/ui/views/students_selection/students_selection_view.dart'
     as _i4;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i11;
+import 'package:stacked_services/stacked_services.dart' as _i12;
 
 class Routes {
   static const homeView = '/home-view';
@@ -37,6 +39,8 @@ class Routes {
 
   static const oralView = '/oral-view';
 
+  static const attendanceWithQRView = '/attendance-with-qr-view';
+
   static const all = <String>{
     homeView,
     startupView,
@@ -46,6 +50,7 @@ class Routes {
     fastAttendanceView,
     loginView,
     oralView,
+    attendanceWithQRView,
   };
 }
 
@@ -83,54 +88,64 @@ class StackedRouter extends _i1.RouterBase {
       Routes.oralView,
       page: _i9.OralView,
     ),
+    _i1.RouteDef(
+      Routes.attendanceWithQRView,
+      page: _i10.AttendanceWithQRView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.HomeView: (data) {
-      return _i10.MaterialPageRoute<dynamic>(
+      return _i11.MaterialPageRoute<dynamic>(
         builder: (context) => const _i2.HomeView(),
         settings: data,
       );
     },
     _i3.StartupView: (data) {
-      return _i10.MaterialPageRoute<dynamic>(
+      return _i11.MaterialPageRoute<dynamic>(
         builder: (context) => const _i3.StartupView(),
         settings: data,
       );
     },
     _i4.StudentsSelectionView: (data) {
-      return _i10.MaterialPageRoute<dynamic>(
+      return _i11.MaterialPageRoute<dynamic>(
         builder: (context) => const _i4.StudentsSelectionView(),
         settings: data,
       );
     },
     _i5.QuizView: (data) {
-      return _i10.MaterialPageRoute<dynamic>(
+      return _i11.MaterialPageRoute<dynamic>(
         builder: (context) => const _i5.QuizView(),
         settings: data,
       );
     },
     _i6.ExamView: (data) {
-      return _i10.MaterialPageRoute<dynamic>(
+      return _i11.MaterialPageRoute<dynamic>(
         builder: (context) => const _i6.ExamView(),
         settings: data,
       );
     },
     _i7.FastAttendanceView: (data) {
-      return _i10.MaterialPageRoute<dynamic>(
+      return _i11.MaterialPageRoute<dynamic>(
         builder: (context) => const _i7.FastAttendanceView(),
         settings: data,
       );
     },
     _i8.LoginView: (data) {
-      return _i10.MaterialPageRoute<dynamic>(
+      return _i11.MaterialPageRoute<dynamic>(
         builder: (context) => const _i8.LoginView(),
         settings: data,
       );
     },
     _i9.OralView: (data) {
-      return _i10.MaterialPageRoute<dynamic>(
+      return _i11.MaterialPageRoute<dynamic>(
         builder: (context) => const _i9.OralView(),
+        settings: data,
+      );
+    },
+    _i10.AttendanceWithQRView: (data) {
+      return _i11.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i10.AttendanceWithQRView(),
         settings: data,
       );
     },
@@ -143,7 +158,7 @@ class StackedRouter extends _i1.RouterBase {
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 
-extension NavigatorStateExtension on _i11.NavigationService {
+extension NavigatorStateExtension on _i12.NavigationService {
   Future<dynamic> navigateToHomeView([
     int? routerId,
     bool preventDuplicates = true,
@@ -256,6 +271,20 @@ extension NavigatorStateExtension on _i11.NavigationService {
         transition: transition);
   }
 
+  Future<dynamic> navigateToAttendanceWithQRView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.attendanceWithQRView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
   Future<dynamic> replaceWithHomeView([
     int? routerId,
     bool preventDuplicates = true,
@@ -362,6 +391,20 @@ extension NavigatorStateExtension on _i11.NavigationService {
         transition,
   ]) async {
     return replaceWith<dynamic>(Routes.oralView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithAttendanceWithQRView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.attendanceWithQRView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

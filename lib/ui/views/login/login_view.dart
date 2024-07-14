@@ -20,11 +20,11 @@ class LoginView extends StackedView<LoginViewModel> {
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Container(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              child: Column(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Column(
                 children: [
                   CircleAvatar(
                     backgroundImage:
@@ -34,35 +34,35 @@ class LoginView extends StackedView<LoginViewModel> {
                   )
                 ],
               ),
-            ),
-            verticalSpaceLarge,
-            TextField(
-              controller: viewModel.emailController,
-              keyboardType: TextInputType.emailAddress,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30))),
-                labelText: 'Email',
+              verticalSpaceLarge,
+              TextField(
+                controller: viewModel.emailController,
+                keyboardType: TextInputType.emailAddress,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(30))),
+                  labelText: 'Email',
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-            TextField(
-              controller: viewModel.passwordController,
-              obscureText: true,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30))),
-                labelText: 'Password',
+              const SizedBox(height: 20),
+              TextField(
+                controller: viewModel.passwordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(30))),
+                  labelText: 'Password',
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                viewModel.login(context);
-              },
-              child: const Text('Login'),
-            ),
-          ],
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  viewModel.login(context);
+                },
+                child: const Text('Login'),
+              ),
+            ],
+          ),
         ),
       ),
     );

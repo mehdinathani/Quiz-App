@@ -73,7 +73,12 @@ class HomeView extends StackedView<HomeViewModel> {
                   onPressed: () {
                     viewModel.navigateToFastAttendance();
                   },
-                  child: const Text("Swift Attendance"))
+                  child: const Text("Swift Attendance")),
+              ElevatedButton(
+                  onPressed: () {
+                    viewModel.navigateToQRAttendance();
+                  },
+                  child: const Text("Attendance with QR"))
             ],
           ),
         ),

@@ -13,7 +13,7 @@ class QuizView extends StackedView<QuizViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Container(
         padding: const EdgeInsets.all(18),
         child: Center(

@@ -228,14 +228,14 @@ class OralViewModel extends BaseViewModel {
                 // Handle Cancel
                 Navigator.pop(context);
               },
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
             ElevatedButton(
               onPressed: () {
                 checkAnswer(question, userTextController.text, context);
                 userTextController.clear();
               },
-              child: Text('OK.'),
+              child: const Text('OK.'),
             ),
           ],
         ),

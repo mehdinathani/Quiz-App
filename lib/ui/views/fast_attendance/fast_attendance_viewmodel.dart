@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:quizapp/app/app.locator.dart';
@@ -41,7 +43,7 @@ class FastAttendanceViewModel extends BaseViewModel {
   Future<void> startBarcodeScanStream() async {
     FlutterBarcodeScanner.getBarcodeStreamReceiver(
             '#ff6666', 'Cancel', true, ScanMode.QR)!
-        .listen((barcode) => print(barcode));
+        .listen((barcode) => log(barcode));
   }
 
   Future<void> fetchStudentData() async {
@@ -102,7 +104,7 @@ class FastAttendanceViewModel extends BaseViewModel {
       } catch (e) {
         // Failed to record attendance
         // Handle error or show message
-        print('Failed to record attendance: $e');
+        log('Failed to record attendance: $e');
       }
     } else {
       // No roll number selected, handle accordingly

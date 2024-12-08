@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:quizapp/ui/common/ui_helpers.dart';
@@ -70,7 +67,7 @@ class AttendanceWithQRView extends StatelessWidget {
                         : const Text("Loading....")
                     // ? Text(
                     //     'Barcode Type: ${describeEnum(viewModel.result!.format)}   Data: ${viewModel.result!.code}')
-                    : Text('Scan a code'),
+                    : const Text('Scan a code'),
               ),
             )
           ],

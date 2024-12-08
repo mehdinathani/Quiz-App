@@ -18,7 +18,7 @@ class FastAttendanceView extends StackedView<FastAttendanceViewModel> {
       appBar: AppBar(
         title: const Text("Swift Attendance"),
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Padding(
         padding: const EdgeInsets.all(18.0),
         child: viewModel.isBusy

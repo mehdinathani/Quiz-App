@@ -19,7 +19,7 @@ class StudentsSelectionView extends StatelessWidget {
             centerTitle: true,
             title: const Text("Student Selection"),
           ),
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25.0),
             child: viewModel.isBusy

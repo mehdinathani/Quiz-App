@@ -134,7 +134,7 @@ class AttendanceWithQRViewModel extends BaseViewModel {
       } catch (e) {
         // Failed to record attendance
         // Handle error or show message
-        print('Failed to record attendance: $e');
+        log('Failed to record attendance: $e');
       }
     } else {
       // No roll number selected, handle accordingly

@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:quizapp/ui/common/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 
@@ -17,7 +16,7 @@ class LoginView extends StackedView<LoginViewModel> {
   ) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Container(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
         child: SingleChildScrollView(

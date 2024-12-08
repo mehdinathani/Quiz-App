@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:quizapp/ui/config.dart';
 
 const double _tinySize = 5.0;
 const double _smallSize = 10.0;

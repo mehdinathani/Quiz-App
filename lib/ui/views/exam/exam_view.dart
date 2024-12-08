@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:quizapp/ui/common/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 
@@ -57,8 +56,8 @@ class ExamView extends StackedView<ExamViewModel> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(18.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          child: OverflowBar(
+                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
